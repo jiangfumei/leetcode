@@ -52,9 +52,12 @@ public class Sorter {
         bubble(arr);
         System.out.println(Arrays.toString(arr));
         insert(arr);
-        System.out.println("insert"+ Arrays.toString(arr));
+        System.out.println("insert" + Arrays.toString(arr));
+        select(arr);
+        System.out.println("select" + Arrays.toString(arr));
+        merge(arr);
+        System.out.println("merge" + Arrays.toString(arr));
     }
-
 
 
     // 插入排序
@@ -74,15 +77,61 @@ public class Sorter {
 
     }
 
-    // 选择排序算法的实现思路有点类似插入排序，也分已排序区间和未排序区间。但是选择排序每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾。
-    public void select(int[] arr){
-        int tmp;
-        for (int i=1;i<arr.length;i++){
-            tmp = arr[i];
-//            for (int j=j-1;j>=0&&arr[])
-
+    // 选择排序
+    // 算法的实现思路有点类似插入排序，也分已排序区间和未排序区间。但是选择排序每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾。
+    public void select(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j]>min){
+                    swap(arr,min,i);
+                }
+            }
         }
     }
+
+    // 归并排序
+    // 归并排序的算法思想是：把数组从中间划分为两个子数组，一直递归地把子数组划分成更小的数组，直到子数组里面只有一个元素的时候开始排序。排序的方法就是按照大小顺序合并两个元素。接着依次按照递归的顺序返回，不断合并排好序的数组，直到把整个数组排好序。
+    public void merge(int[] arr){
+/*        int[] oragin = arr, temp = new int[arr.length];
+        for (int cap = 1; cap < oragin.length; cap *= 2) {
+            for (int i = 0; i < oragin.length; ) {
+                int next = i + cap + cap;
+                merge(oragin, temp, i, i + cap, next);
+                i = next;
+            }
+            int[] o = oragin;
+            oragin = temp;
+            temp = o;
+        }
+        System.arraycopy(oragin, 0, arr, 0, arr.length);*/
+
+        int[] temp = new int[arr.length];
+
+    }
+    public void merge(int[] src, int[] target, int from, int left, int right) {
+        left = Math.min(src.length, left);
+        right = Math.min(src.length, right);
+        int p1 = from, p2 = left, i = from;
+        for (; p1 < left && p2 < right; i++) {
+            if (src[p1] < src[p2]) {
+                target[i] = src[p1];
+                p1++;
+            } else {
+                target[i] = src[p2];
+                p2++;
+            }
+        }
+        for (; p1 < left; i++) {
+            target[i] = src[p1];
+            p1++;
+        }
+        for (; p2 < right; i++) {
+            target[i] = src[p2];
+            p2++;
+        }
+    }
+
 
 
 }
